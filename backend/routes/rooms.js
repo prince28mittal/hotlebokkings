@@ -8,7 +8,7 @@ router.get('/availablerooms', async (req, res) => {
 });
 
 router.post('/bookrooms', async (req, res) => {
-    console.log(req.body)
+    // if
     const { user, room } = req.body;
     await rooms.updateOne({ _id: room }, { 'fields.available': false });
     const bookroom = new bookrooms({ user, room });
@@ -16,13 +16,12 @@ router.post('/bookrooms', async (req, res) => {
     res.json({ success: true });
 });
 
-router.get('/bookedrooms/:id', async (req, res) => {
-    console.log('fghjk')
-    const { id } = req.params;
+router.get('/bookedrooms', async (req, res) => {
+    const { id } = req.query;
     console.log(id)
     const data = await bookrooms.find({ user: id }).populate({
-        path: './room'
-    })
+        path: 'rooms'
+    });
     res.json(data);
 })
 
