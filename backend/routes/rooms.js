@@ -18,11 +18,15 @@ router.post('/bookrooms', async (req, res) => {
 
 router.get('/bookedrooms', async (req, res) => {
     const { id } = req.query;
-    console.log(id)
-    const data = await bookrooms.find({ user: id }).populate({
-        path: 'rooms'
-    });
+    const data = await bookrooms.find({ user: id }).populate('room');
     res.json(data);
-})
+});
+
+router.post('/removebookedrooms', async (req, res) => {
+    const { id, roomid } = req.body;
+    await bookrooms.findOneAndRemove({ _id: id });
+    await rooms.updateOne({ _id: roomid }, { 'fields.available': true })
+    res.json({success: true, msg: 'done'});
+});
 
 module.exports = router;

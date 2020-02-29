@@ -20,4 +20,4 @@ const PersonSchema = new Schema({
     }
 });
 
-module.exports = Person = mongoose.model("myPerson", PersonSchema);
+module.exports = mongoose.model("myPerson", PersonSchema);
