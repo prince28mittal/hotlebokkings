@@ -20,8 +20,11 @@ export default class SingleRoom extends Component {
     }*/
 
     bookroom = async (_id) => {
+        const authenticated = JSON.parse(localStorage.getItem('authenticated'));
+        if ( !authenticated ) {
+            return alert('login to to book this room');
+        }
         const {id} = JSON.parse(localStorage.getItem('user'));
-        console.log(id)
         const res = await fetch('http://localhost:5000/rooms/bookrooms',{
             method: 'POST',
             body: JSON.stringify({ user: id, room: _id }),

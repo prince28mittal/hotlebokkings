@@ -12,7 +12,6 @@ import Navbar from './Navbar';
     );
 }
 
-
 Hero.defaultProps = {
     hero: "defaultHero"
 };
